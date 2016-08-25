@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>SistemaXizara</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css' %>
+  <%= stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+      <%= link_to 'xizara', painel_root_path, class: "logo" %>
+    </div>
+    <!-- End App Logo -->
+
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button"><i class="fa fa-bars"></i></a>
+    <a href="#" class="sidebar-open-button-mobile"><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+
+    <!-- Start Top Right -->
+    <ul class="top-right">
+
+    <!-- <li class="link">
+      <a href="#" class="notifications">6</a>
+    </li> -->
+
+    <li class="dropdown link">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><!-- <img src="img/profileimg.png" alt="img"> --><b>Olá <%= current_user.name %></b><span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+          <li>
+            <%= link_to painel_user_path(current_user) do %>
+              <i class="fa falist fa-user"></i> Perfil
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, :method => :delete do %>
+              <i class="fa falist fa-power-off"></i> Logout
+            <% end %>
+          </li>
+        </ul>
+    </li>
+
+    </ul>
+    <!-- End Top Right -->
+
+  </div>
+
+  <div class="sidebar clearfix">
+
+    <ul class="sidebar-panel nav">
+      <li>
+        <%= link_to painel_root_path do %>
+          <span class="icon color5">
+            <i class="fa fa-home"></i>
+          </span>Dashboard
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><span class="icon color7"><i class="fa fa-barcode"></i></span>Produtos<span class="caret"></span></a>
+        <ul>
+          <li><%= link_to "Produtos", painel_products_path %></li>
+          <li><%= link_to "Adicionar produto", new_painel_product_path %></li>
+          <li><%= link_to "Categorias", painel_categories_path %></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><span class="icon color7"><i class="fa fa-users"></i></span>Clientes<span class="caret"></span></a>
+        <ul>
+          <li><%= link_to "Clientes", painel_clients_path %></li>
+          <li><%= link_to "Adicionar cliente", new_painel_client_path %></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><span class="icon color7"><i class="fa fa-shopping-cart"></i></span>Vendas<span class="caret"></span></a>
+        <ul>
+          <li><%= link_to "Vendas", painel_sales_path %></li>
+          <li><%= link_to "Efetuar venda", new_painel_sale_path %></li>
+          <li><%= link_to "Adicionar método de pagamento", painel_payments_path %></li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="content">

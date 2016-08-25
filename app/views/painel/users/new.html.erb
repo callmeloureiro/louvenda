@@ -1,0 +1,96 @@
+<!-- Start Page Header -->
+<div class="page-header">
+  <h1 class="title">Adicionar um cliente</h1>
+
+</div>
+<!-- End Page Header -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <%= form_for @user, :url => { :action => 'create' }, :html => { :class => 'form-horizontal' } do |f| %>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.label :name, "Nome Completo" , class: "control-label form-label" %>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <%= f.label :cpf, "CPF" , class: "control-label form-label" %>
+            <%= f.text_field :cpf, class: "form-control cpf", "required" => "" %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.label :birthday, "Data de Nascimento" , class: "control-label form-label" %>
+            <%= f.text_field :birthday, class: "form-control date" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <%= f.label :cellphone, "Celular" , class: "control-label form-label" %>
+            <%= f.text_field :cellphone, class: "form-control phone" %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.label :telephone, "Telefone" , class: "control-label form-label" %>
+            <%= f.text_field :telephone, class: "form-control phone" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.label :email, class: "control-label form-label" %>
+            <%= f.text_field :email, class: "form-control", "required" => "" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <%= f.label :password, "Senha", class: "control-label form-label" %>
+            <%= f.password_field :password, :value => "cliente123" ,class: "form-control", "required" => "" %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.label :password_confirmation, "Confirmar Senha", class: "control-label form-label" %>
+            <%= f.password_field :password_confirmation, :value => "cliente123" , class: "form-control", "required" => "" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-3">
+            <%= f.label :CEP, "CEP" ,class: "control-label form-label" %>
+            <%= f.text_field :CEP, class: "form-control cep" %>
+          </div>
+          <div class="col-sm-7">
+            <%= f.label :address_line, "Endereço", class: "control-label form-label" %>
+            <%= f.text_field :address_line, class: "form-control" %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.label :number, "Número",class: "control-label form-label" %>
+            <%= f.text_field :number, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-5">
+            <%= f.label :district, "Bairro", class: "control-label form-label" %>
+            <%= f.text_field :district, class: "form-control" %>
+          </div>
+          <div class="col-sm-5">
+            <%= f.label :city ,"Cidade", class: "control-label form-label" %>
+            <%= f.text_field :city, class: "form-control" %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.label :state ,"Estado", class: "control-label form-label" %>
+            <%= f.text_field :state, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.label :status ,"Status", class: "control-label form-label" %>
+            <%= f.select :status, [['Ativo', true], ["Não ativo", false]] ,class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

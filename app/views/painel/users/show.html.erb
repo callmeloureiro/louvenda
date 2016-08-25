@@ -1,0 +1,159 @@
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Seu profile</h1>
+    <ol class="breadcrumb">
+      <li class="active">This is a quick overview of some features</li>
+    </ol>
+
+  </div>
+  <!-- End Page Header -->
+
+
+  <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START CONTAINER -->
+  <div class="container-default">
+
+    <div class="row">
+
+      <div class="col-md-8 col-xs-10 padding">
+        <div class="col-xs-12 col-sm-4 text-center">
+          <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10616077_550529081714357_6933053192870210030_n.jpg?oh=e98a2bec5598657c72dbad48277dafd0&oe=55727C55&__gda__=1436712073_741146eda33bd17015cf4b88e66bbb9c" alt="" class="center-block img-circle img-thumbnail img-responsive">
+        </div>
+        <!--/col--> 
+        <div class="col-xs-12 col-sm-8 ">
+          <h2><%= @user.name %></h2>
+          <p><strong>Endereço:</strong> <%= @user.address_line %>, <%= @user.number %>, <%= @user.CEP %> - <%= @user.district %> - <%= @user.city %>/<%= @user.state %></p>
+          <p><strong>Telefone:</strong> <%= @user.telephone %> / <strong>Celular:</strong>  <%= @user.cellphone %></p>
+          <p><strong>Email:</strong> <%= @user.email %></p>
+          <p><strong>Data de Nascimento:</strong> <%= @user.birthday %></p>
+          <p><strong>CPF:</strong> <%= @user.cpf %></p>
+          <div class="margin-t-30">
+            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#editarinfos"><i class="fa fa-exclamation"></i>Editar Informações</a>
+            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#updatepassword"><i class="fa fa-key"></i>Modificar Senha</a>
+            <div style="display: none;" class="modal fade" id="editarinfos" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Informações</h4>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_for @user, :url => { :action => 'update' }, :html => { :class => 'form-horizontal' } do |f| %>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.label :name, "Nome Completo" , class: "control-label form-label" %>
+                          <%= f.text_field :name, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-6">
+                          <%= f.label :cpf, "CPF" , class: "control-label form-label" %>
+                          <%= f.text_field :cpf, class: "form-control cpf" , "disabled" => "" %>
+                        </div>
+                        <div class="col-sm-6">
+                          <%= f.label :birthday, "Data de Nascimento" , class: "control-label form-label" %>
+                          <%= f.text_field :birthday, class: "form-control date" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-6">
+                          <%= f.label :cellphone, "Celular" , class: "control-label form-label" %>
+                          <%= f.text_field :cellphone, class: "form-control phone" %>
+                        </div>
+                        <div class="col-sm-6">
+                          <%= f.label :telephone, "Telefone" , class: "control-label form-label" %>
+                          <%= f.text_field :telephone, class: "form-control phone" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.label :email, class: "control-label form-label" %>
+                          <%= f.text_field :email, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <%= f.label :CEP, "CEP" ,class: "control-label form-label" %>
+                          <%= f.text_field :CEP, class: "form-control cep" %>
+                        </div>
+                        <div class="col-sm-7">
+                          <%= f.label :address_line, "Endereço", class: "control-label form-label" %>
+                          <%= f.text_field :address_line, class: "form-control" %>
+                        </div>
+                        <div class="col-sm-2">
+                          <%= f.label :number, "Número",class: "control-label form-label" %>
+                          <%= f.text_field :number, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-5">
+                          <%= f.label :district, "Bairro", class: "control-label form-label" %>
+                          <%= f.text_field :district, class: "form-control" %>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.label :city ,"Cidade", class: "control-label form-label" %>
+                          <%= f.text_field :city, class: "form-control" %>
+                        </div>
+                        <div class="col-sm-2">
+                          <%= f.label :state ,"Estado", class: "control-label form-label" %>
+                          <%= f.text_field :state, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.label :status ,"Status", class: "control-label form-label" %>
+                          <%= f.select :status, [['Ativo', true], ["Não ativo", false]] ,class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display: none;" class="modal fade" id="updatepassword" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Informações</h4>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_for @user, :url => { :action => 'updatepassword' }, :html => { :class => 'form-horizontal' } do |f| %>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.label :password, "Senha" , class: "control-label form-label" %>
+                          <%= f.password_field :password, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.label :password_confirmation, "Confirmar senha" , class: "control-label form-label" %>
+                          <%= f.password_field :password_confirmation, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- END CONTAINER -->
+  <!-- //////////////////////////////////////////////////////////////////////////// --> 
+

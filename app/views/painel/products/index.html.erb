@@ -1,0 +1,54 @@
+<!-- Start Page Header -->
+<div class="page-header">
+  <h1 class="title">Produtos</h1>
+  <ol class="breadcrumb">
+    <li class="active">Atualmente possui <span class="label label-default"><%= @products.count %></span> produtos cadastrados.</li>
+  </ol>
+
+</div>
+<!-- End Page Header -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body table-responsive">
+
+        <div class="dataTables_wrapper" id="example0_wrapper">
+          <table aria-describedby="example0_info" role="grid" id="example0" class="table display dataTable">
+            <thead>
+              <tr role="row">
+                <th aria-label="Name: activate to sort column descending" aria-sort="ascending" style="width: 257px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting_asc">Referência</th>
+                <th aria-label="Position: activate to sort column ascending" style="width: 406px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Nome</th>
+                <th aria-label="Age: activate to sort column ascending" style="width: 189px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Categoria</th>
+                <th aria-label="Office: activate to sort column ascending" style="width: 100px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Preço</th>
+              </tr>
+            </thead>
+
+            <tfoot>
+              <tr>
+                <th colspan="1" rowspan="1">Referência</th>
+                <th colspan="1" rowspan="1">Nome</th>
+                <th colspan="1" rowspan="1">Categoria</th>
+                <th colspan="1" rowspan="1">Preço</th>
+            </tfoot>
+
+            <tbody>
+              <% @products.each do |p| %>  
+                <tr class="odd" role="row">
+                  <td class="sorting_1"><%= p.sku %></td>
+                  <td><%= p.name %></td>
+                  <td><%= p.category.name %></td>
+                  <td>R$ <%= number_with_precision(p.price, :precision => 2).to_s.gsub('.', ',') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

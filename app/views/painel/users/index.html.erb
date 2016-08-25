@@ -1,0 +1,57 @@
+<!-- Start Page Header -->
+<div class="page-header">
+  <h1 class="title">Clientes</h1>
+  <ol class="breadcrumb">
+    <li class="active">Atualmente possui <span class="label label-default"><%= @clients.count %></span> clientes cadastrados.</li>
+  </ol>
+
+</div>
+<!-- End Page Header -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body table-responsive">
+
+        <div class="dataTables_wrapper" id="example0_wrapper">
+          <table aria-describedby="example0_info" role="grid" id="example0" class="table display dataTable">
+            <thead>
+              <tr role="row">
+                <th aria-label="Name: activate to sort column descending" aria-sort="ascending" style="width: 100px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting_asc">ID</th>
+                <th aria-label="Position: activate to sort column ascending" style="width: 406px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Nome</th>
+                <th aria-label="Age: activate to sort column ascending" style="width: 189px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Email</th>
+                <th aria-label="Office: activate to sort column ascending" style="width: 257px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Quantidade de Compras</th>
+                <th aria-label="Office: activate to sort column ascending" style="width: 257px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0" class="sorting">Perfil</th>
+              </tr>
+            </thead>
+
+            <tfoot>
+              <tr>
+                <th colspan="1" rowspan="1">ID</th>
+                <th colspan="1" rowspan="1">Nome</th>
+                <th colspan="1" rowspan="1">Email</th>
+                <th colspan="1" rowspan="1">Quantidade de Compras</th>
+                <th colspan="1" rowspan="1">Perfil</th>
+            </tfoot>
+
+            <tbody>
+              <% @users.each do |p| %>  
+                <tr class="odd" role="row">
+                  <td class="sorting_1"><%= p.id %></td>
+                  <td><%= p.name %></td>
+                  <td><%= p.email %></td>
+                  <td><%= p.sale.count %></td>
+                  <td><a href="<%= painel_user_path(p) %>">Perfil</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

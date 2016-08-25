@@ -1,0 +1,316 @@
+
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Dashboard</h1>
+    <ol class="breadcrumb">
+      <li class="active">This is a quick overview of some features</li>
+    </ol>
+
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+      <div class="btn-group" role="group" aria-label="...">
+        <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+      </div>
+    </div>
+    <!-- End Page Header Right Div -->
+
+  </div>
+  <!-- End Page Header -->
+
+
+  <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START CONTAINER -->
+  <div class="container-widget">
+
+    <div class="col-md-12">
+      <ul class="topstats clearfix">
+        <li class="arrow"></li>
+        <li class="col-xs-6 col-lg-3">
+          <span class="title"><i class="fa fa-dot-circle-o"></i> Hoje</span>
+          <h3>R$<%= number_with_precision(@salestoday.sum(:price), precision: 2) %></h3>
+        </li>
+        <li class="col-xs-6 col-lg-3">
+          <span class="title"><i class="fa fa-calendar-o"></i> Nessa Semana</span>
+          <h3>R$<%= number_with_precision(@salesweek.sum(:price), precision: 2) %></h3>
+        </li>
+        <li class="col-xs-6 col-lg-3">
+          <span class="title"><i class="fa fa-shopping-cart"></i> Total de Vendas</span>
+          <h3 class="color-up"><%= @sales.count %></h3>
+        </li>
+        <li class="col-xs-6 col-lg-3">
+          <span class="title"><i class="fa fa-users"></i> Total de Clientes</span>
+          <h3><%= @clients.count %></h3>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <!-- Start Quick Menu -->
+        <ul class="panel panel-widget quick-menu clearfix">
+          <li class="col-sm-4">
+            <a href="#" data-toggle="modal" data-target="#modalcliente"><i class="fa fa-users"></i>Novo Cliente</a>
+          </li>
+          <li class="col-sm-4">
+            <a href="#" data-toggle="modal" data-target="#modalproduto"><i class="fa fa-tags"></i>Novo Produto</a>
+          </li>
+          <li class="col-sm-4">
+            <a href="#" data-toggle="modal" data-target="#modalvenda"><i class="fa fa-shopping-cart"></i>Nova Venda</a>
+          </li>
+        </ul>
+        <!-- End Quick Menu -->
+
+      </div>
+
+    </div> 
+
+
+    <div class="row">
+
+      <div class="col-md-12 col-lg-8">
+        <div class="panel panel-widget">
+          <div class="panel-title">
+            Vendas <span class="label label-warning"><%= @sales.count %></span>
+            <ul class="panel-tools">
+              <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+            </ul>
+          </div>
+
+          <div class="panel-search">
+            <form>
+              <input class="form-control" placeholder="Search..." type="text">
+              <i class="fa fa-search icon"></i>
+            </form>
+          </div>
+
+
+          <div class="panel-body table-responsive">
+
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <td>ID</td>
+                  <td>Forma de Pagamento</td>
+                  <td>Cliente</td>
+                  <td>Data</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @sales.each do |s| %>
+                  <tr>
+                    <td># <%= s.id %></td>
+                    <td><%= s.payment.name %></td>
+                    <td><%= s.client.name %></td>
+                    <td><%= s.created_at.to_s(:venda) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Start Browser Stats -->
+        <div class="panel panel-widget">
+          <div class="panel-title">
+            Clientes Recentes
+            <ul class="panel-tools">
+              <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+            </ul>
+          </div>
+          <div class="panel-body">
+
+            <ul class="basic-list" id="clientesrecentes">
+              <% @clients.each do |c| %>
+                <li><a href="<%= painel_client_path(c) %>"><%= c.name %></a></li>
+              <% end %>
+<!--               <li>Google Chrome <span class="right label label-default">42.8%</span></li>
+              <li>Firefox <span class="right label label-danger">16.9%</span></li>
+              <li>Safari <span class="right label label-success">15.5%</span></li>
+              <li>Opera <span class="right label label-primary">11.8%</span></li>
+              <li>Internet Explorer <span class="right label label-danger">3.2%</span></li>
+              <li>Mobile <span class="right label label-warning">3%</span></li>
+              <li>Others <span class="right label label-warning">0%</span></li> -->
+            </ul>
+
+          </div>
+        </div>
+        <!-- End Browser Stats -->
+      </div>
+
+    </div>
+
+  </div>
+  <!-- END CONTAINER -->
+  <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+  <div style="display: none;" class="modal fade" id="modalcliente" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Adicionar cliente</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @client, :url => { :action => 'create', :controller=>"painel/clients" }, :html => { :class => 'form-horizontal' } do |f| %>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :name, "Nome Completo" , class: "control-label form-label" %>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <%= f.label :cellphone, "Celular" , class: "control-label form-label" %>
+                <%= f.text_field :cellphone, class: "form-control phone" %>
+              </div>
+              <div class="col-sm-6">
+                <%= f.label :telephone, "Telefone" , class: "control-label form-label" %>
+                <%= f.text_field :telephone, class: "form-control phone" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :email, class: "control-label form-label" %>
+                <%= f.text_field :email, class: "form-control", "required" => "" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3">
+                <%= f.label :CEP, "CEP" ,class: "control-label form-label" %>
+                <%= f.text_field :CEP, class: "form-control cep" %>
+              </div>
+              <div class="col-sm-7">
+                <%= f.label :address_line, "Endereço", class: "control-label form-label" %>
+                <%= f.text_field :address_line, class: "form-control" %>
+              </div>
+              <div class="col-sm-2">
+                <%= f.label :number, "Número",class: "control-label form-label" %>
+                <%= f.text_field :number, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <%= f.label :district, "Bairro", class: "control-label form-label" %>
+                <%= f.text_field :district, class: "form-control" %>
+              </div>
+              <div class="col-sm-5">
+                <%= f.label :city ,"Cidade", class: "control-label form-label" %>
+                <%= f.text_field :city, class: "form-control" %>
+              </div>
+              <div class="col-sm-2">
+                <%= f.label :state ,"Estado", class: "control-label form-label" %>
+                <%= f.text_field :state, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :status ,"Status", class: "control-label form-label" %>
+                <%= f.select :status, [['Ativo', true], ["Não ativo", false]] ,class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none;" class="modal fade" id="modalproduto" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Adicionar Produto</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @product, :url => { :action => 'create', :controller=>"painel/products" }, :html => { :class => 'form-horizontal' } do |f| %>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :sku, "Código" , class: "control-label form-label" %>
+                <%= f.text_field :sku, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :name, "Nome do Produto" , class: "control-label form-label" %>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :category_id, "Categoria do Produto" , class: "control-label form-label" %>
+                <%= collection_select(:product, :category_id, Category.all, :id, :name, { :prompt => "Selecione uma categoria" }, { :class=> 'form-control'}) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :price, "Preço" , class: "control-label form-label" %>
+                <%= f.text_field :price, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :quantify, "Quantidade" , class: "control-label form-label" %>
+                <%= f.text_field :quantify, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none;" class="modal fade" id="modalvenda" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Efetuar nova venda</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @sale, :url => { :action => "create", :controller=>"painel/sales" }, :html => { :class => "form-horizontal" } do |f| %>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :payment_id, "Forma de Pagamento" , class: "control-label form-label" %>
+                <%= collection_select(:sale, :payment_id, Payment.all, :id, :name, { :prompt => "Selecione uma forma de pagamento" }, { :class=>'form-control'}) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :client_id, "Cliente" , class: "control-label form-label" %>
+                <%= collection_select(:sale, :client_id, Client.all, :id, :name, { :prompt => "Selecione um cliente" }, { :class=>'form-control'}) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.label :price, "Valor da Venda" , class: "control-label form-label" %>
+                <%= f.text_field :price, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.submit 'Salvar', :class => 'btn btn-default right' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+

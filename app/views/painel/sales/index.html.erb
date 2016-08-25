@@ -1,0 +1,60 @@
+<!-- Start Page Header -->
+<div class="page-header">
+  <h1 class="title">Vendas</h1>
+  <ol class="breadcrumb">
+    <li class="active">Vendas efetuadas: <span class="label label-default"><%= @sales.count %></span></li>
+  </ol>
+
+</div>
+<!-- End Page Header -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body table-responsive">
+
+        <div class="dataTables_wrapper" id="example0_wrapper">
+          <table aria-describedby="example0_info" role="grid" id="example0" class="table display dataTable">
+            <thead>
+              <tr role="row">
+                <th style="width: 50px;"  colspan="1" rowspan="1" aria-controls="example0" tabindex="0">ID</th>
+                <th style="width: 257px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0">Método de Pagamento</th>
+                <th style="width: 406px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0">Cliente</th>
+                <th style="width: 406px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0">Produtos</th>
+                <th style="width: 100px;" colspan="1" rowspan="1" aria-controls="example0" tabindex="0">Preço</th>
+              </tr>
+            </thead>
+
+            <tfoot>
+              <tr>
+                <th colspan="1" rowspan="1">ID</th>
+                <th colspan="1" rowspan="1">Método de Pagamento</th>
+                <th colspan="1" rowspan="1">Cliente</th>
+                <th colspan="1" rowspan="1">Preço</th>
+            </tfoot>
+
+            <tbody>
+              <% @sales.each do |p| %>  
+                <tr>
+                  <td><%= p.id %></td>
+                  <td><%= p.payment.name %></td>
+                  <td><%= p.client.name %></td>
+                  <td>
+                    <% p.products.each do |p| %>
+                      <%= p.name %>
+                    <% end %>
+                  </td>
+                  <td>R$ <%= number_with_precision(p.price, :precision => 2).to_s.gsub('.', ',') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
